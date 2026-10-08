@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Littérature Québécoise</title>
+  <style>
+    :root {
+      --bg-color: #141414;
+      --card-width: 300px;
+      --card-height: 170px;
+      --accent-color: #e50914;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: #ffffff;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* En-tête / Navigation style Netflix */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 68px;
+      padding: 0 4%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(180deg, rgba(0,0,0,0.8) 10%, transparent);
+      z-index: 100;
+      transition: background-color 0.4s;
+    }
+
+    header.scrolled {
+      background-color: #141414;
+    }
+
+    .logo {
+      color: var(--accent-color);
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #e5e5e5;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #b3b3b3;
+    }
+
+    /* Hero Banner interactif avec vidéo au survol */
+    .hero {
+      position: relative;
+      height: 52vh;
+      min-height: 380px;
+      background: #141414;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 4% 30px 4%;
+      margin-top: 98px;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    .hero-bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://lh3.googleusercontent.com/d/1NB1na-U9xh_lmqm9BrHHHifNMFKunY81') center/cover no-repeat;
+      z-index: 1;
+      transition: opacity 0.4s ease;
+    }
+
+    .hero-bg-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      z-index: 2;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .hero:hover .hero-bg-video {
+      opacity: 1;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, var(--bg-color) 0%, transparent 60%),
+                  radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 4;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    }
+
+    .hero-content p {
+      font-size: 1.1rem;
+      line-height: 1.4;
+      color: #cccccc;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+      max-width: 800px;
+    }
+
+    /* Conteneur des boutons aligné sur une seule ligne sans scrollbar */
+    .hero-buttons {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 10px;
+      overflow: visible;
+    }
+
+    .hero-buttons button,
+    .hero-buttons a.btn-link {
+      padding: 9px 18px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+
+    .btn-play {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    .btn-info {
+      background-color: rgba(109, 109, 110, 0.7);
+      color: #ffffff;
+    }
+
+    .btn-thesis,
+    .btn-amazon {
+      background-color: rgba(109, 109, 110, 0.7);
+      color: #ffffff;
+    }
+
+    .hero-buttons button:hover,
+    .hero-buttons a.btn-link:hover {
+      opacity: 0.8;
+    }
+
+    /* Rangees de Saisons */
+    .content-container {
+      padding: 20px 0 60px 0;
+      margin-top: -20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .season-row {
+      margin-bottom: 40px;
+      padding: 0 4%;
+    }
+
+    .season-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #e5e5e5;
+    }
+
+    /* Style du badge "Nouveaux épisodes" */
+    .badge-new-episodes {
+      display: inline-flex;
+      align-items: center;
+      background-color: #e50914;
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 2px;
+      margin-left: 12px;
+      vertical-align: middle;
+      text-decoration: none;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      transition: background-color 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+
+    .badge-new-episodes:hover {
+      background-color: #f40612;
+      transform: scale(1.05);
+      color: #ffffff;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      margin-right: 6px;
+      animation: pulse-dot 1.5s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0% { transform: scale(0.95); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.6; }
+      100% { transform: scale(0.95); opacity: 1; }
+    }
+
+    /* Carrousel */
+    .carousel-wrapper {
+      position: relative;
+    }
+
+    .carousel {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 15px 0;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Cards / Vignettes d'episodes */
+    .card {
+      flex: 0 0 var(--card-width);
+      height: var(--card-height);
+      position: relative;
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      background-color: #2f2f2f;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.12);
+      z-index: 20;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.8);
+    }
+
+    /* Classe pour maintenir le focus permanent sur la carte ciblée */
+    .card.highlight-card {
+      transform: scale(1.12);
+      z-index: 20;
+      box-shadow: 0 0 20px rgba(229, 9, 20, 0.7);
+      border: 2px solid var(--accent-color);
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .card:hover video {
+      opacity: 1;
+    }
+
+    .card-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 10px;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      opacity: 1;
+    }
+
+    .card-title {
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .card-subtitle {
+      font-size: 0.75rem;
+      color: #aaaaaa;
+      margin-top: 2px;
+    }
+
+    /* Boutons du carrousel */
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      z-index: 25;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s, background 0.3s;
+    }
+
+    .carousel-wrapper:hover .nav-btn {
+      opacity: 1;
+    }
+
+    .nav-btn:hover {
+      background: rgba(0,0,0,0.8);
+    }
+
+    .nav-btn.left { left: -4%; }
+    .nav-btn.right { right: -4%; }
+
+    /* Modal lecteur Google Drive avec panneau latéral */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      position: relative;
+      width: 95%;
+      max-width: 1300px;
+      background: #181818;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.9);
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    @media (max-width: 992px) {
+      .modal-content {
+        flex-direction: column;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+    }
+
+    .modal-video-container {
+      flex: 1.5;
+      background: #000;
+      aspect-ratio: 16/9;
+      position: relative;
+      display: flex;
+    }
+
+    .modal iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .modal-text-container {
+      flex: 1;
+      padding: 25px 30px;
+      display: flex;
+      flex-direction: column;
+      background: #181818;
+      border-left: 1px solid #2a2a2a;
+      max-height: 100%;
+      overflow-y: auto; 
+    }
+
+    .modal-text-container::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .modal-text-container::-webkit-scrollbar-track {
+      background: #181818;
+    }
+
+    .modal-text-container::-webkit-scrollbar-thumb {
+      background: #444444;
+      border-radius: 3px;
+    }
+
+    .modal-text-container::-webkit-scrollbar-thumb:hover {
+      background: #666666;
+    }
+
+    .modal-text-container h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: #ffffff;
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 6px;
+      display: inline-block;
+    }
+
+    .modal-text-container p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #d1d1d1;
+      text-align: justify;
+    }
+
+    .modal-text-container p a {
+      color: #ff6b6b;
+      text-decoration: underline;
+    }
+
+    .modal-text-container p a:hover {
+      color: #ff9999;
+    }
+
+    /* Modal "Plus d'infos" spécifique */
+    .info-modal-content {
+      position: relative;
+      width: 90%;
+      max-width: 750px;
+      background: #181818;
+      border-radius: 8px;
+      padding: 40px 35px 35px 35px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+      border: 1px solid #333;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+
+    .info-modal-content h2 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: #ffffff;
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 10px;
+      display: inline-block;
+    }
+
+    .info-text-block {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #d1d1d1;
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    .info-highlight {
+      background: rgba(229, 9, 20, 0.1);
+      border-left: 4px solid var(--accent-color);
+      padding: 15px 20px;
+      border-radius: 0 4px 4px 0;
+      color: #e5e5e5;
+      font-style: italic;
+    }
+
+    .info-highlight a {
+      color: #ff6b6b;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+
+    .info-highlight a:hover {
+      color: #ff9999;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      color: white;
+      font-size: 2.5rem;
+      cursor: pointer;
+      z-index: 1010;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    }
+
+    .close-btn:hover {
+      color: var(--accent-color);
+    }
+  </style>
+</head>
+<body>
+
+  <header id="navbar">
+    <div class="logo">LITTÉRATURE</div>
+    <nav>
+      <ul>
+        <li><a href="#">Accueil</a></li>
+        <li><a href="#s1">Censure littéraire</a></li>
+        <li><a href="#s2">Contes et légendes</a></li>
+        <li><a href="#s3">Littératures de la diversité</a></li>
+        <li><a href="#s4">Poésie québécoise</a></li>
+        <li><a href="#s5">Polars québécoise</a></li>
+        <li><a href="#s6">Romans historiques</a></li>
+        <li><a href="#s7">Romans du pays</a></li>
+        <li><a href="#s8">Romans psychologiques</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero" id="heroBanner">
+    <div class="hero-bg-image"></div>
+    <video class="hero-bg-video" id="heroVideo" muted loop preload="metadata" src="https://drive.google.com/uc?export=download&id=1bf1izrxofAyoAsUn7g-QclbvITF_eT6B"></video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Vogage en Littérature Québécoise</h1>
+      <p>Conçue par Bernard Andrès et réalisée par Pierre Fraser sous l'égide de l'AIEQ, la série documentaire <i>Voyage en Littérature Québécoise</i> propose une exploration captivante de l'imaginaire national. À travers des entretiens éclairants ancrés dans l'Atlas littéraire du Québec, elle dévoile la richesse, la diversité et la profondeur historique des voix d'ici.</p>
+      <div class="hero-buttons">
+        <button class="btn-play" onclick="playDriveVideo('1Uta9pzetT-c4aRRhM3xoC6fo07_3TFN-', 'Bande-annonce')">► Bande-annonce</button>
+      </div>
+    </div>
+  </section>
+
+  <main class="content-container" id="seasons-container"></main>
+
+  <!-- Lecteur Modal Google Drive avec Texte -->
+  <div class="modal" id="videoModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <div class="modal-video-container">
+        <iframe id="drivePlayer" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+      <div class="modal-text-container" id="modalTextContainer">
+        <h3 id="modalEpisodeTitle">Extrait de la thèse</h3>
+        <p id="modalEpisodeText">Chargement de l'extrait...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal "Plus d'infos" -->
+  <div class="modal" id="infoModal">
+    <div class="info-modal-content">
+      <span class="close-btn" onclick="closeInfoModal()">&times;</span>
+      <h2>À propos de la série</h2>
+      <p class="info-text-block">
+        Conçue par Bernard Andrès et réalisée par Pierre Fraser sous l'égide de l'AIEQ, la série documentaire <i>Voyage en Littérature Québécoise</i> propose une exploration captivante de l'imaginaire national. À travers des entretiens éclairants ancrés dans l'Atlas littéraire du Québec, elle dévoile la richesse, la diversité et la profondeur historique des voix d'ici.
+      </p>
+      <div class="info-highlight">
+        Conçue par Bernard Andrès et réalisée par Pierre Fraser sous l'égide de l'AIEQ, la série documentaire <i>Voyage en Littérature Québécoise</i> propose une exploration captivante de l'imaginaire national. À travers des entretiens éclairants ancrés dans l'Atlas littéraire du Québec, elle dévoile la richesse, la diversité et la profondeur historique des voix d'ici.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const testVideoFileId = "1bf1izrxofAyoAsUn7g-QclbvITF_eT6B";
+    const testThumbnailFileId = "1h1-0I2aDyNVCTMySTTFNsr9W9dF8rL3j";
+
+    const defaultThesisSynopsis = "Conçue par Bernard Andrès et réalisée par Pierre Fraser sous l'égide de l'AIEQ, la série documentaire <i>Voyage en Littérature Québécoise</i> propose une exploration captivante de l'imaginaire national. À travers des entretiens éclairants ancrés dans l'Atlas littéraire du Québec, elle dévoile la richesse, la diversité et la profondeur historique des voix d'ici.";
+
+    const seasons = [
+      {
+        id: "s1",
+        title: "Censure littéraire",
+        episodes: [
+          { 
+            id: 1, 
+            title: "La censure britannique et française", 
+            duration: "05:55", 
+            fileId: "1hQlgrUzqpyGegTMZDSDI_o75Iw0BHdNN", 
+            imageId: "1U3QkhIst4FZqpraaR5C0uUwP66o8lczC",
+            synopsis: "L'histoire de la littérature québécoise se décline comme une lutte séculaire pour la liberté d'expression, une traversée tumultueuse marquée par l'omniprésence d'une censure tant ecclésiastique que politique. Depuis les balbutiements de la Nouvelle-France jusqu'à l'effervescence contemporaine, la parole écrite a dû s'extraire de l'étau du « Rituels du diocèse » et des « Lettres pastorales » de Mgr Bourget pour enfin s'affranchir. Ce parcours, jalonné par l'Index et la mise au ban d'œuvres jugées « obscènes » ou subversives — des pamphlets d'Arthur Buies aux cris de Claude Gauvreau —, témoigne d'une transition brutale de la soutane à la toge, où la répression morale a fini par céder sous le poids d'une identité culturelle en pleine mutation. L'émergence de projets monumentaux comme l'Atlas littéraire du Québec et le Dictionnaire de la censure confirme aujourd'hui cette volonté de réappropriation factuelle d'un passé longtemps mis sous silence. Comme le souligne Pierre Hébert, cette évolution n'est pas qu'une simple chronologie de textes interdits, mais la preuve irréfutable de la résilience d'une pensée qui, malgré les bouleversements et les tentatives d'étouffement, a su transformer la contrainte en un moteur de création radicale."
+          },
+          { 
+            id: 2, 
+            title: "Une censure au cas par cas", 
+            duration: "03:38", 
+            fileId: "1mTV5AJjYdha3TG9Vy40g9lApw7pgZbuG", 
+            imageId: "1rKQ4-YenOa--l1LtUW0gdmluqlxzb43Q",
+            synopsis: "Le passage de la censure littéraire française à la censure britannique au Québec s'est principalement produit lors de la Conquête britannique de 1760, lorsque les forces britanniques ont pris le contrôle de la colonie française de la Nouvelle-France, y compris le territoire qui est aujourd'hui le Québec. Ce changement de pouvoir a eu un impact significatif sur de nombreux aspects de la vie au Québec, y compris la censure littéraire."
+          },
+          { 
+            id: 3, 
+            title: "La censure imposée par le clergé", 
+            duration: "04:52", 
+            fileId: "1_oGp0hqnHhPUJXeo0QBxz6FYTjCIx4x7", 
+            imageId: "1vgHYEV571T9LGZalxYdOS_LcMro0KDf7",
+            synopsis: "Imaginez le Québec de la fin du XIXe siècle : dans ce climat, écrire n’est jamais un geste innocent. C’est un pari risqué, parfois même un acte de défi. Prenons l’exemple de Marie Calumet, ce roman de Rodolphe Girard publié en 1904. Il dépeint avec ironie la vie paroissiale, et cela suffit pour déclencher la colère des autorités religieuses. Le verdict tombe : interdiction pure et simple. Le livre est retiré des librairies, condamné au silence officiel. Mais la censure n’a pas toujours besoin de frapper avec fracas. Elle sait se montrer sournoise, comme dans le cas du Débutant de Damase Potvin. Là, pas de condamnation publique, pas de scandale… juste un silence glacial. Ignoré par les critiques, tenu à l’écart des circuits de diffusion, le roman disparaît doucement dans l’ombre. Une censure par omission, tout aussi efficace qu’une interdiction. Et puis, il y a l’autre visage, plus intime encore : l’autocensure. Celle qui fait trembler la main de l’auteur avant même d’écrire."
+          },
+          { 
+            id: 4, 
+            title: "Quand l'Église faisait taire les idées", 
+            duration: "04:26", 
+            fileId: "1PNAUwcrUyWsXWPZ3RhFxfzed7IWqmVhG", 
+            imageId: "1x-WvZDpN-Cr6GUT7aiaAXBgt4vL3WSk-",
+            synopsis: "Nous sommes en 1840. Montréal accueille un nouvel évêque : Monseigneur Bourget. Et dès son arrivée, il impose un climat de fer. L’Institut canadien de Montréal, symbole d’ouverture intellectuelle, devient l’ennemi à abattre. Excommunications, interdictions, condamnations… tout ce qui s’écarte de la morale catholique est visé. C’est une censure brutale, presque inquisitoriale. Mais le temps passe, et avec le XXe siècle surgissent de nouveaux défis : journaux, radio, cinéma, littérature populaire. Impossible pour l’Église de tout interdire. Alors, elle adapte sa stratégie. Plutôt que de brandir le marteau de l’excommunication, elle met en place un système plus subtil : des cotes morales. Comme une grille de lecture officielle pour dire aux fidèles ce qui est « sûr » de lire, et ce qui pourrait les mener sur une mauvaise pente. C’est le passage d’une censure frontale à une surveillance plus discrète, mais tout aussi efficace, qui encadre la parole publique et façonne la culture québécoise de l’époque."
+          },
+          { 
+            id: 5, 
+            title: "La fin de la censure cléricale", 
+            duration: "04:00", 
+            fileId: "1s8sEwSDHv1JNNwgh1myhblTfBNFTlROa", 
+            imageId: "1JwUVquV-FMKjBibzL1OEaYHBbduR0rc4",
+            synopsis: "L’invasion des Crime Comics pousse l’Église à transférer la censure au système judiciaire. Cette mutation institutionnelle redéfinit profondément les frontières de la liberté d’expression. La loi sur l’obscénité de 1959 et les procès, dont celui de L’amant de Lady Chatterley, établissent un précédent, reconnaissant le statut particulier des œuvres littéraires et les protégeant d’une censure aussi rigide que d’autres publications. Dès lors, les juges doivent composer avec la valeur esthétique et sociale des textes, actant la fin d'un monopole moral absolu exercé par les autorités religieuses sur la création artistique."
+          },
+          { 
+            id: 6, 
+            title: "La censure de « Nègres blancs d'Amérique »", 
+            duration: "03:00", 
+            fileId: "1mgTWuTlJ1ai8dFKjpeDqX65qCCz3K807", 
+            imageId: "1HXXFIF3vwMyYtnyCgBzNgb9YAhCkb-QK",
+            synopsis: "Il y a des livres et des pièces de théâtre qui n’ont pas seulement dérangé… ils ont carrément secoué tout un système. Prenez Nègres blancs d’Amérique, de Pierre Vallières : à sa parution, l’ouvrage est saisi, retiré du public. Une censure radicale, brutale, comme si on avait voulu effacer d’un seul coup la voix de son auteur. Quelques années plus tard, un autre choc : Les Fées ont soif, de Denise Boucher. Cette pièce devient le centre d’une tempête médiatique et sociale. Elle est attaquée de toutes parts : par la justice, par le clergé, et par des institutions qui y voyaient une menace pour l’ordre moral. Et pourtant… ironie du sort, ces œuvres que l’on voulait réduire au silence sont aujourd’hui considérées comme majeures. Comme le rappelle Pierre Hébert, leur censure n’a pas étouffé leur message, elle l’a au contraire amplifié. Elle a déclenché des débats passionnés sur la liberté d’expression, sur le pouvoir des mots, et sur le rôle de la culture dans une société en pleine transformation."
+          },
+          { 
+            id: 7, 
+            title: "La censure militante", 
+            duration: "04:45", 
+            fileId: "1spUFC4Ug88ejUHGPcVs_YDSjpAO0fbdv", 
+            imageId: "1Qzl6L1C31lKzEyWf8qdN0iDU24DrGCfF",
+            synopsis: "Depuis quelques années, le Québec est le théâtre d’une forme nouvelle de censure, moins verticale qu’autrefois, mais plus insidieuse et virulente, car issue de groupes militants organisés. Pierre Hébert, spécialiste reconnu de la censure littéraire, s’est penché sur cette mutation en analysant un cas emblématique : celui de l’auteur Yvan Godbout. Accusé à tort de production de pornographie juvénile pour un passage fictif dans un roman d’horreur, Godbout a été au cœur d’une chasse aux sorcières moderne qui en dit long sur l’état de la liberté d’expression au Québec."
+          },
+          { 
+            id: 8, 
+            title: "Censure littéraire et recherche", 
+            duration: "03:31", 
+            fileId: "1Z3UMmdqry9Mt7zX8l4FRVCMYE9Ae1eyb", 
+            imageId: "16mFRnhRFA_MGEU744V1vvaOqrXX_2Z7p",
+            synopsis: "L'art de la Renaissance a transformé le corps humain en un véritable culte esthétique et philosophique. En s'inspirant de modèles antiques comme le Torse du Belvédère, des maîtres tels que Michel-Ange et Raphaël ont glorifié une anatomie ultra-musclée, reléguant la nature au second plan. Pour réussir cette illusion de volume tridimensionnel, les peintres ont dû maîtriser l'architecture interne des muscles et de la lumière. Cette quête a atteint son apogée avec l'Homme de Vitruve de Léonard de Vinci, qui symbolise l'humanisme en plaçant l'homme au centre de l'univers et comme mesure de toute chose. Enfin, les textes comparent cette obsession historique de la perfection physique aux algorithmes modernes, suggérant que notre quête actuelle d'idéal corporel a perdu sa dimension cosmique."
+          },
+        ]
+      },
+      {
+        id: "s2",
+        title: "Contes et légendes",
+        episodes: [
+          { id: 1, title: "Épisode 1 : Le Grand Siècle", duration: "", fileId: testVideoFileId, image: "https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=600" },
+          { id: 2, title: "Épisode 2 : L'Âge Baroque", duration: "", fileId: testVideoFileId, image: "https://images.unsplash.com/photo-1518998053901-5348d3961a04?q=80&w=600" },
+          { id: 3, title: "Épisode 3 : Monarques et Pouvoir", duration: "", fileId: testVideoFileId, image: "https://images.unsplash.com/photo-1566127444979-b3d2b654e3d7?q=80&w=600" }
+        ]
+      },
+      {
+        id: "s3",
+        title: "Littérature de la diversité",
+        episodes: [
+          { id: 1, title: "Épisode 1 : La Raison et l'Esprit", duration: "", fileId: testVideoFileId, image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=600" },
+          { id: 2, title: "Épisode 2 : L'Encyclopédie", duration: "", fileId: testVideoFileId, image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=600" }
+        ]
+      },
+      {
+        id: "s4",
+        title: "Poésie québécoise",
+        episodes: [
+          { id: 1, title: "Épisode 1 : La Vapeur et le Fer", duration: "", fileId: testVideoFileId, image: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?q=80&w=600" }
+        ]
+      },
+      {
+        id: "s5",
+        title: "Romans policiers",
+        episodes: [
+          { id: 1, title: "Épisode 1 : Un Monde de Mutations", duration: "", fileId: testVideoFileId, image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=600" }
+        ]
+      },
+      {
+        id: "s6",
+        title: "Romans historiques",
+        episodes: [
+          { id: 1, title: "Épisode 1 : L'Ère Numérique", duration: "", fileId: testVideoFileId, image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600" }
+        ]
+      },
+      {
+        id: "s7",
+        title: "Romans du pays",
+        episodes: [
+          { id: 1, title: "Épisode 1 : L'Ère Numérique", duration: "", fileId: testVideoFileId, image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600" }
+        ]
+      },
+      {
+        id: "s8",
+        title: "Romans psychologiques",
+        episodes: [
+          { id: 1, title: "Épisode 1 : L'Ère Numérique", duration: "", fileId: testVideoFileId, image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600" }
+        ]
+      },
+      {
+        id: "s9",
+        title: "Théâtre québécois",
+        episodes: [
+          { id: 1, title: "Épisode 1 : L'Ère Numérique", duration: "", fileId: testVideoFileId, image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600" }
+        ]
+      }
+    ];
+
+    const container = document.getElementById('seasons-container');
+
+    function formatDuration(seconds) {
+      if (isNaN(seconds) || seconds <= 0) return "Durée inconnue";
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      if (mins === 0) {
+        return `${secs} s`;
+      }
+      return `${mins} min${secs > 0 ? ' ' + secs + ' s' : ''}`;
+    }
+
+    seasons.forEach((season) => {
+      const row = document.createElement('div');
+      row.className = 'season-row';
+      row.id = season.id;
+
+      const title = document.createElement('h2');
+      title.className = 'season-title';
+
+      // Insertion du badge Netflix pour la section Renaissance (id: s1)
+      if (season.id === 's1') {
+        title.innerHTML = `${season.title} <a href="#ep-s1-6" class="badge-new-episodes"><span class="badge-dot"></span>Nouveaux épisodes</a>`;
+      } else {
+        title.textContent = season.title;
+      }
+
+      row.appendChild(title);
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'carousel-wrapper';
+
+      const btnLeft = document.createElement('button');
+      btnLeft.className = 'nav-btn left';
+      btnLeft.innerHTML = '&#10094;';
+      btnLeft.onclick = () => scrollCarousel(carousel, -600);
+
+      const btnRight = document.createElement('button');
+      btnRight.className = 'nav-btn right';
+      btnRight.innerHTML = '&#10095;';
+      btnRight.onclick = () => scrollCarousel(carousel, 600);
+
+      const carousel = document.createElement('div');
+      carousel.className = 'carousel';
+
+      season.episodes.forEach(ep => {
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        // Attribution d'un ID unique à l'épisode 6 de la section Renaissance
+        if (season.id === 's1' && ep.id === 6) {
+          card.id = 'ep-s1-6';
+          // Optionnel : ajouter la classe de mise en valeur permanente dès le chargement initial
+          card.classList.add('highlight-card');
+        }
+
+        card.onclick = () => {
+          // Si l'utilisateur clique sur une autre carte, on peut optionnellement retirer le focus persistant
+          document.querySelectorAll('.card.highlight-card').forEach(c => c.classList.remove('highlight-card'));
+          playDriveVideo(ep.fileId, ep.title, ep.synopsis);
+        };
+
+        const img = document.createElement('img');
+        img.src = ep.imageId 
+          ? `https://lh3.googleusercontent.com/d/${ep.imageId}` 
+          : ep.image;
+        img.alt = ep.title;
+
+        const video = document.createElement('video');
+        video.muted = true;
+        video.loop = true;
+        video.preload = "metadata";
+
+        const info = document.createElement('div');
+        info.className = 'card-info';
+        info.innerHTML = `
+          <div class="card-title">${ep.title}</div>
+          <div class="card-subtitle">${ep.duration}</div>
+        `;
+
+        video.src = `https://drive.google.com/uc?export=download&id=${ep.fileId}`;
+        video.addEventListener('loadedmetadata', () => {
+          const formatted = formatDuration(video.duration);
+          ep.duration = formatted;
+          const subtitleEl = info.querySelector('.card-subtitle');
+          if (subtitleEl) {
+            subtitleEl.textContent = formatted;
+          }
+        });
+
+        card.addEventListener('mouseenter', () => {
+          video.play().catch(() => {});
+        });
+
+        card.addEventListener('mouseleave', () => {
+          video.pause();
+          video.currentTime = 0;
+        });
+
+        card.appendChild(img);
+        card.appendChild(video);
+        card.appendChild(info);
+        carousel.appendChild(card);
+      });
+
+      wrapper.appendChild(btnLeft);
+      wrapper.appendChild(carousel);
+      wrapper.appendChild(btnRight);
+      row.appendChild(wrapper);
+      container.appendChild(row);
+    });
+
+    // Gestion du survol pour la bannière Hero
+    const heroBanner = document.getElementById('heroBanner');
+    const heroVideo = document.getElementById('heroVideo');
+
+    heroBanner.addEventListener('mouseenter', () => {
+      heroVideo.play().catch(() => {});
+    });
+
+    heroBanner.addEventListener('mouseleave', () => {
+      heroVideo.pause();
+      heroVideo.currentTime = 0;
+    });
+
+    function scrollCarousel(carousel, distance) {
+      carousel.scrollBy({ left: distance, behavior: 'smooth' });
+    }
+
+    // Gestion du clic sur le badge "Nouveaux épisodes" pour faire défiler et maintenir le focus
+    document.addEventListener('click', function(e) {
+      const target = e.target.closest('.badge-new-episodes');
+      if (target) {
+        e.preventDefault();
+        const targetCard = document.getElementById('ep-s1-6');
+        if (targetCard) {
+          const carousel = targetCard.closest('.carousel');
+          if (carousel) {
+            const scrollLeftPos = targetCard.offsetLeft - carousel.offsetLeft;
+            carousel.scrollTo({
+              left: scrollLeftPos,
+              behavior: 'smooth'
+            });
+
+            // S'assure que la classe de mise en valeur reste active sur la carte ciblée
+            targetCard.classList.add('highlight-card');
+          }
+        }
+      }
+    });
+
+    function playDriveVideo(fileId, episodeTitle, episodeSynopsis) {
+      const modal = document.getElementById('videoModal');
+      const player = document.getElementById('drivePlayer');
+      const titleEl = document.getElementById('modalEpisodeTitle');
+      const textEl = document.getElementById('modalEpisodeText');
+      const textContainer = document.getElementById('modalTextContainer');
+
+      player.src = `https://drive.google.com/file/d/${fileId}/preview?autoplay=1`;
+      titleEl.textContent = episodeTitle || "Extrait de la thèse";
+      textEl.innerHTML = episodeSynopsis || defaultThesisSynopsis;
+
+      textContainer.scrollTop = 0;
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('videoModal');
+      const player = document.getElementById('drivePlayer');
+      player.src = '';
+      modal.classList.remove('active');
+    }
+
+    function openInfoModal() {
+      const modal = document.getElementById('infoModal');
+      modal.scrollTop = 0;
+      modal.classList.add('active');
+    }
+
+    function closeInfoModal() {
+      const modal = document.getElementById('infoModal');
+      modal.classList.remove('active');
+    }
+
+    window.onclick = function(event) {
+      const videoModal = document.getElementById('videoModal');
+      const infoModal = document.getElementById('infoModal');
+      if (event.target === videoModal) {
+        closeModal();
+      }
+      if (event.target === infoModal) {
+        closeInfoModal();
+      }
+    }
+
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>
