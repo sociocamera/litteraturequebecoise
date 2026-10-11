@@ -1,4 +1,3 @@
-//VLQ
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -93,6 +92,8 @@
       background: url('https://lh3.googleusercontent.com/d/1NB1na-U9xh_lmqm9BrHHHifNMFKunY81') center/cover no-repeat;
       z-index: 1;
       transition: opacity 0.4s ease;
+      /* Rend l'image de fond plus claire et légèrement rehaussée en contraste */
+      filter: brightness(0.90) contrast(1.05);
     }
 
     .hero-bg-video {
@@ -118,8 +119,9 @@
       left: 0;
       width: 100%;
       height: 100%;
+      /* Masque assombrissant adouci pour laisser passer plus de lumière */
       background: linear-gradient(to top, var(--bg-color) 0%, transparent 60%),
-                  radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%);
+                  radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%);
       z-index: 3;
       pointer-events: none;
     }
@@ -620,7 +622,7 @@
             duration: "05:55", 
             fileId: "1hQlgrUzqpyGegTMZDSDI_o75Iw0BHdNN", 
             imageId: "1U3QkhIst4FZqpraaR5C0uUwP66o8lczC",
-            synopsis: "L'histoire de la littérature québécoise se décline comme une lutte séculaire pour la liberté d'expression, une traversée tumultueuse marquée par l'omniprésence d'une censure tant ecclésiastique que politique. Depuis les balbutiements de la Nouvelle-France jusqu'à l'effervescence contemporaine, la parole écrite a dû s'extraire de l'étau du « Rituels du diocèse » et des « Lettres pastorales » de Mgr Bourget pour enfin s'affranchir. Ce parcours, jalonné par l'Index et la mise au ban d'œuvres jugées « obscènes » ou subversives — des pamphlets d'Arthur Buies aux cris de Claude Gauvreau —, témoigne d'une transition brutale de la soutane à la toge, où la répression morale a fini par céder sous le poids d'une identité culturelle en pleine mutation. L'émergence de projets monumentaux comme l'Atlas littéraire du Québec et le Dictionnaire de la censure confirme aujourd'hui cette volonté de réappropriation factuelle d'un passé longtemps mis sous silence. Comme le souligne Pierre Hébert, cette évolution n'est pas qu'une simple chronologie de textes interdits, mais la preuve irréfutable de la résilience d'une pensée qui, malgré les bouleversements et les tentatives d'étouffement, a su transformer la contrainte en un moteur de création radicale."
+            synopsis: "L'histoire de la littérature québécoise se décline comme une lutte séculaire pour la liberté d'expression..."
           },
           { 
             id: 2, 
@@ -628,7 +630,7 @@
             duration: "03:38", 
             fileId: "1mTV5AJjYdha3TG9Vy40g9lApw7pgZbuG", 
             imageId: "1rKQ4-YenOa--l1LtUW0gdmluqlxzb43Q",
-            synopsis: "Le passage de la censure littéraire française à la censure britannique au Québec s'est principalement produit lors de la Conquête britannique de 1760, lorsque les forces britanniques ont pris le contrôle de la colonie française de la Nouvelle-France, y compris le territoire qui est aujourd'hui le Québec. Ce changement de pouvoir a eu un impact significatif sur de nombreux aspects de la vie au Québec, y compris la censure littéraire."
+            synopsis: "Le passage de la censure littéraire française à la censure britannique au Québec s'est produit lors de la Conquête..."
           },
           { 
             id: 3, 
@@ -636,7 +638,7 @@
             duration: "04:52", 
             fileId: "1_oGp0hqnHhPUJXeo0QBxz6FYTjCIx4x7", 
             imageId: "1vgHYEV571T9LGZalxYdOS_LcMro0KDf7",
-            synopsis: "Imaginez le Québec de la fin du XIXe siècle : dans ce climat, écrire n’est jamais un geste innocent. C’est un pari risqué, parfois même un acte de défi. Prenons l’exemple de Marie Calumet, ce roman de Rodolphe Girard publié en 1904. Il dépeint avec ironie la vie paroissiale, et cela suffit pour déclencher la colère des autorités religieuses. Le verdict tombe : interdiction pure et simple. Le livre est retiré des librairies, condamné au silence officiel. Mais la censure n’a pas toujours besoin de frapper avec fracas. Elle sait se montrer sournoise, comme dans le cas du Débutant de Damase Potvin. Là, pas de condamnation publique, pas de scandale… juste un silence glacial. Ignoré par les critiques, tenu à l’écart des circuits de diffusion, le roman disparaît doucement dans l’ombre. Une censure par omission, tout aussi efficace qu’une interdiction. Et puis, il y a l’autre visage, plus intime encore : l’autocensure. Celle qui fait trembler la main de l’auteur avant même d’écrire."
+            synopsis: "Imaginez le Québec de la fin du XIXe siècle : dans ce climat, écrire n’est jamais un geste innocent..."
           },
           { 
             id: 4, 
@@ -644,7 +646,7 @@
             duration: "04:26", 
             fileId: "1PNAUwcrUyWsXWPZ3RhFxfzed7IWqmVhG", 
             imageId: "1x-WvZDpN-Cr6GUT7aiaAXBgt4vL3WSk-",
-            synopsis: "Nous sommes en 1840. Montréal accueille un nouvel évêque : Monseigneur Bourget. Et dès son arrivée, il impose un climat de fer. L’Institut canadien de Montréal, symbole d’ouverture intellectuelle, devient l’ennemi à abattre. Excommunications, interdictions, condamnations… tout ce qui s’écarte de la morale catholique est visé. C’est une censure brutale, presque inquisitoriale. Mais le temps passe, et avec le XXe siècle surgissent de nouveaux défis : journaux, radio, cinéma, littérature populaire. Impossible pour l’Église de tout interdire. Alors, elle adapte sa stratégie. Plutôt que de brandir le marteau de l’excommunication, elle met en place un système plus subtil : des cotes morales. Comme une grille de lecture officielle pour dire aux fidèles ce qui est « sûr » de lire, et ce qui pourrait les mener sur une mauvaise pente. C’est le passage d’une censure frontale à une surveillance plus discrète, mais tout aussi efficace, qui encadre la parole publique et façonne la culture québécoise de l’époque."
+            synopsis: "Nous sommes en 1840. Montréal accueille un nouvel évêque : Monseigneur Bourget..."
           },
           { 
             id: 5, 
@@ -652,7 +654,7 @@
             duration: "04:00", 
             fileId: "1s8sEwSDHv1JNNwgh1myhblTfBNFTlROa", 
             imageId: "1JwUVquV-FMKjBibzL1OEaYHBbduR0rc4",
-            synopsis: "L’invasion des Crime Comics pousse l’Église à transférer la censure au système judiciaire. Cette mutation institutionnelle redéfinit profondément les frontières de la liberté d’expression. La loi sur l’obscénité de 1959 et les procès, dont celui de L’amant de Lady Chatterley, établissent un précédent, reconnaissant le statut particulier des œuvres littéraires et les protégeant d’une censure aussi rigide que d’autres publications. Dès lors, les juges doivent composer avec la valeur esthétique et sociale des textes, actant la fin d'un monopole moral absolu exercé par les autorités religieuses sur la création artistique."
+            synopsis: "L’invasion des Crime Comics pousse l’Église à transférer la censure au système judiciaire..."
           },
           { 
             id: 6, 
@@ -660,7 +662,7 @@
             duration: "03:00", 
             fileId: "1mgTWuTlJ1ai8dFKjpeDqX65qCCz3K807", 
             imageId: "1HXXFIF3vwMyYtnyCgBzNgb9YAhCkb-QK",
-            synopsis: "Il y a des livres et des pièces de théâtre qui n’ont pas seulement dérangé… ils ont carrément secoué tout un système. Prenez Nègres blancs d’Amérique, de Pierre Vallières : à sa parution, l’ouvrage est saisi, retiré du public. Une censure radicale, brutale, comme si on avait voulu effacer d’un seul coup la voix de son auteur. Quelques années plus tard, un autre choc : Les Fées ont soif, de Denise Boucher. Cette pièce devient le centre d’une tempête médiatique et sociale. Elle est attaquée de toutes parts : par la justice, par le clergé, et par des institutions qui y voyaient une menace pour l’ordre moral. Et pourtant… ironie du sort, ces œuvres que l’on voulait réduire au silence sont aujourd’hui considérées comme majeures. Comme le rappelle Pierre Hébert, leur censure n’a pas étouffé leur message, elle l’a au contraire amplifié. Elle a déclenché des débats passionnés sur la liberté d’expression, sur le pouvoir des mots, et sur le rôle de la culture dans une société en pleine transformation."
+            synopsis: "Il y a des livres et des pièces de théâtre qui n’ont pas seulement dérangé..."
           },
           { 
             id: 7, 
@@ -668,7 +670,7 @@
             duration: "04:45", 
             fileId: "1spUFC4Ug88ejUHGPcVs_YDSjpAO0fbdv", 
             imageId: "1Qzl6L1C31lKzEyWf8qdN0iDU24DrGCfF",
-            synopsis: "Depuis quelques années, le Québec est le théâtre d’une forme nouvelle de censure, moins verticale qu’autrefois, mais plus insidieuse et virulente, car issue de groupes militants organisés. Pierre Hébert, spécialiste reconnu de la censure littéraire, s’est penché sur cette mutation en analysant un cas emblématique : celui de l’auteur Yvan Godbout. Accusé à tort de production de pornographie juvénile pour un passage fictif dans un roman d’horreur, Godbout a été au cœur d’une chasse aux sorcières moderne qui en dit long sur l’état de la liberté d’expression au Québec."
+            synopsis: "Depuis quelques années, le Québec est le théâtre d’une forme nouvelle de censure..."
           },
           { 
             id: 8, 
@@ -676,7 +678,7 @@
             duration: "03:31", 
             fileId: "1Z3UMmdqry9Mt7zX8l4FRVCMYE9Ae1eyb", 
             imageId: "16mFRnhRFA_MGEU744V1vvaOqrXX_2Z7p",
-            synopsis: "L'art de la Renaissance a transformé le corps humain en un véritable culte esthétique et philosophique. En s'inspirant de modèles antiques comme le Torse du Belvédère, des maîtres tels que Michel-Ange et Raphaël ont glorifié une anatomie ultra-musclée, reléguant la nature au second plan. Pour réussir cette illusion de volume tridimensionnel, les peintres ont dû maîtriser l'architecture interne des muscles et de la lumière. Cette quête a atteint son apogée avec l'Homme de Vitruve de Léonard de Vinci, qui symbolise l'humanisme en plaçant l'homme au centre de l'univers et comme mesure de toute chose. Enfin, les textes comparent cette obsession historique de la perfection physique aux algorithmes modernes, suggérant que notre quête actuelle d'idéal corporel a perdu sa dimension cosmique."
+            synopsis: "L'art de la Renaissance a transformé le corps humain en un véritable culte esthétique..."
           },
         ]
       },
@@ -690,7 +692,7 @@
             duration: "10:24", 
             fileId: "1z7Wk-zcvVXubk7g66QMGmFF0aWYaC1Dr", 
             imageId: "13rGFMbhpCBBJCz7wYOxBk0K7mV8rvEyd",
-            synopsis: "Ces entretiens avec Aurélien Boivin explorent l’histoire du conte québécois du XIXe au XXIe siècle. Il analyse les typologies du conte — réaliste, historique, surnaturel — et évoque son évolution au XXe siècle, avec l’essor de collectes ethnographiques et le renouveau scénique contemporain. Des figures marquantes comme Jocelyn Bérubé, Michel Faubert et Fred Pellerin sont mises en lumière."
+            synopsis: "Ces entretiens avec Aurélien Boivin explorent l’histoire du conte québécois..."
           },
           { 
             id: 2, 
@@ -698,7 +700,7 @@
             duration: "09:59", 
             fileId: "18JSu0SFNHMnPx_huxCLJI0VPM33RD2df", 
             imageId: "1jjDMlHQ7_hgGyPHcChXOhrDylz7jVBLn",
-            synopsis: "Les contes surnaturels québécois s'apparentent intimement à la légende en tant que récits vrais objets de croyance. Profondément enracinés dans l'orthodoxie catholique, ils mettent en scène des entités hors du commun telles que le diable, les loups-garous, les feux follets ou les farfadins. Ces figures mythiques interviennent toujours en regard des dogmes et des interdits religieux, qu'il s'agisse de pactes diaboliques conclus lors de veillées de danse ou de manquements aux pâques chrétiennes. Des auteurs comme Philippe Aubert de Gaspé, Honoré Beaugrand et Louis Fréchette ont immortalisé cet imaginaire foisonnant, oscillant constamment entre la transgression morale et le châtiment spirituel salvateur, tout en façonnant une identité littéraire nationale distincte."
+            synopsis: "Les contes surnaturels québécois s'apparentent intimement à la légende..."
           },
           { 
             id: 3, 
@@ -706,7 +708,7 @@
             duration: "05:16", 
             fileId: "1lRJkqprqtOTPR5-R2xIQgbeMNjJixwXw", 
             imageId: "1G3NE6jO_AE9B8ovwM95fUQXzrxUPjlHd",
-            synopsis: "Cette vidéo explore les thèmes majeurs de la littérature canadienne-française du dix-neuvième siècle, en se focalisant d'abord sur la figure de l'exil. Entre dix-huit cent cinquante et dix-neuf cent cinquante, près d'un million de Canadiens émigrent aux États-Unis pour travailler dans les manufactures. Souvent perçus négativement ou comme des déracinés, ils tentent malgré tout de préserver leur foi et leur langue grâce à des paroisses encadrées par des ecclésiastiques. Dans un second temps, l'entretien aborde les récits à saveur historique inspirés des travaux de François-Xavier Garneau. En mettant en scène des figures illustres comme Montcalm ou Madeleine de Verchères, ces nouvelles diffusées dans les journaux visent à éduquer le peuple. Ces précurseurs littéraires pavent ainsi la voie aux futurs grands romans historiques nationaux."
+            synopsis: "Cette vidéo explore les thèmes majeurs de la littérature canadienne-française..."
           },
           { 
             id: 4, 
@@ -714,7 +716,7 @@
             duration: "09:03", 
             fileId: "1n9n9E8e3EWlolp4wbUBEd--rfsnOLz4m", 
             imageId: "12GBCeKoqwtKNM8PBzRzAbRTY02EUa3Os",
-            synopsis: "Durant les quatre premières décennies du XXe siècle, le conte québécois s'inscrit dans la continuité des traditions du XIXe siècle à travers trois registres distincts. D'abord, les récits régionalistes épousent l'idéologie du roman de la terre, illustrés par l'attachement viscéral des paysans à leur sol natal, comme en témoignent Lionel Groulx avec le sacrifice d'un vieux cheval ou Marie-Victorin avec l'abattage dramatique d'un arbre centenaire. Ensuite, les évocations nostalgiques exhalent un profond regret des objets et des coutumes d'autrefois, du vieux hangar au poêle ancestral. Enfin, les portraits dressent une galerie pittoresque de figures traditionnelles, telles que les différentes catégories de mendiants. L'ensemble vise à léguer aux jeunes générations la mémoire collective de leur héritage culturel."
+            synopsis: "Durant les quatre premières décennies du XXe siècle, le conte québécois..."
           },
           { 
             id: 5, 
@@ -722,7 +724,7 @@
             duration: "07:45", 
             fileId: "1xY7KmXJB_4GWzQP8LmX2iOU7r2rK31--", 
             imageId: "1oe7g3O2GCbeVpQjlO8t0QOv98gYyLYJu",
-            synopsis: "L’anthropologue Marius Barbeau révolutionne le paysage culturel québécois en popularisant le conte merveilleux, puisant ses récits dans les traditions orales amérindiennes et régionales, notamment à Charlevoix et en Gaspésie. Diffusées à travers des publications pionnières destinées à la jeunesse, ces collectes encouragent d'autres voix, féminines et paysannes, à consigner leur propre patrimoine. En 1944, la fondation des Archives de folklore par Luc Lacoursière et Monseigneur Savard structure académiquement cette démarche. Progressivement, à partir des années 1960, le genre s'émancipe des dogmes religieux et moraux traditionnels pour explorer le fantastique, la psychologie humaine et la science-fiction, inaugurant un essor littéraire considérable."
+            synopsis: "L’anthropologue Marius Barbeau révolutionne le paysage culturel..."
           },
           { 
             id: 6, 
@@ -730,7 +732,7 @@
             duration: "06:46", 
             fileId: "1CRpdDhTeWpZqJ6cnPiqDXqOSXqdJ7xE1", 
             imageId: "1n445cQmfepEjpgPZApeodqRNey4GSpK0",
-            synopsis: "La résurrection du conte québécois à la fin du XXe siècle s'incarne magistralement à travers des figures de proue telles que le pionnier Jocelin Bérubé. Mettant à profit les richesses des archives folkloriques de l'Université Laval, ce conteur professionnel insuffle une vie nouvelle aux grands mythes traditionnels et aux légendes. Dans son œuvre marquante, Portraits en blouse de travail, il revisite des figures mythiques comme Alexis le Trotteur, qui court plus vite que le vent pour épouser une étoile filante, tout en proposant une relecture poignante et sociale de l'émeute de Maurice Richard. Entre subversion facétieuse face au diable et réinterprétation de l'histoire collective, Bérubé insuffle à la tradition orale une modernité vibrante."
+            synopsis: "La résurrection du conte québécois à la fin du XXe siècle..."
           },
           { 
             id: 7, 
@@ -738,7 +740,7 @@
             duration: "09:10", 
             fileId: "1H6Xall-h5DBz3SzXIwr2REo-aUta5eUN", 
             imageId: "1Ps5dDOap-3YJt0GrtpWQoDoAEhUWlk-L",
-            synopsis: "Au XXIe siècle, le conte québécois s'affirme pleinement comme un art vivant de la scène grâce à des figures émérites telles que Michel Faubert, Jean-Marc Massie et Marc Laberge. Ces conteurs allient la mémoire des traditions orales à une imagination débridée, renouvelant les formes narratives et investissant les festivals aux quatre coins de la province. Ce mouvement trouve une consécration populaire majeure avec Fred Pellerin, dont l'univers poétique et l'exagération truculente érigent le village de Saint-Élie-de-Caxton en mythe littéraire. En mêlant humour, théâtre et patrimoine, ces artistes contemporains propulsent le conte au sommet de la modernité culturelle québécoise."
+            synopsis: "Au XXIe siècle, le conte québécois s'affirme pleinement comme un art vivant..."
           },
           { 
             id: 8, 
@@ -746,7 +748,7 @@
             duration: "04:38", 
             fileId: "14VZZQo722KK_JHNR4wIOaSXagV-wWJTy", 
             imageId: "10lFQcmlqCrQUkCKzfGOdWBQlOjqaRXLp",
-            synopsis: "La diffusion littéraire et institutionnelle des contes et légendes au Québec repose sur des initiatives éditoriales et ethnographiques d'envergure. En première ligne, la maison d'édition Planète Rebelle a donné un souffle décisif au renouveau du genre en publiant des dizaines de recueils et des projets thématiques d'éclat, tels que les sept péchés capitaux du Musée de la civilisation. Parallèlement, le travail colossal des folkloristes a permis d'ancrer durablement ce patrimoine vivant, à l'instar des dix-huit volumes des Vieux m'contés de Germain Lemieux pour l'Ontario francophone, ou de la collection régionale dirigée par Victor-Lévy Beaulieu. Ces efforts conjugués d'édition et de sauvegarde ont transformé la tradition orale en un véritable pilier identitaire et culturel."
+            synopsis: "La diffusion littéraire et institutionnelle des contes et légendes..."
           },
         ]
       },
@@ -822,7 +824,6 @@
       const title = document.createElement('h2');
       title.className = 'season-title';
 
-      // Insertion du badge Netflix pour la section Renaissance (id: s1)
       if (season.id === 's1') {
         title.innerHTML = `${season.title} <a href="#ep-s1-6" class="badge-new-episodes"><span class="badge-dot"></span>Nouveaux épisodes</a>`;
       } else {
@@ -851,15 +852,11 @@
         const card = document.createElement('div');
         card.className = 'card';
 
-        // Attribution d'un ID unique à l'épisode 6 de la section Renaissance
         if (season.id === 's1' && ep.id === 6) {
           card.id = 'ep-s1-6';
-          // Optionnel : ajouter la classe de mise en valeur permanente dès le chargement initial
-          //card.classList.add('highlight-card');
         }
 
         card.onclick = () => {
-          // Si l'utilisateur clique sur une autre carte, on peut optionnellement retirer le focus persistant
           document.querySelectorAll('.card.highlight-card').forEach(c => c.classList.remove('highlight-card'));
           playDriveVideo(ep.fileId, ep.title, ep.synopsis);
         };
@@ -914,7 +911,6 @@
       container.appendChild(row);
     });
 
-    // Gestion du survol pour la bannière Hero
     const heroBanner = document.getElementById('heroBanner');
     const heroVideo = document.getElementById('heroVideo');
 
@@ -931,7 +927,6 @@
       carousel.scrollBy({ left: distance, behavior: 'smooth' });
     }
 
-    // Gestion du clic sur le badge "Nouveaux épisodes" pour faire défiler et maintenir le focus
     document.addEventListener('click', function(e) {
       const target = e.target.closest('.badge-new-episodes');
       if (target) {
@@ -945,8 +940,6 @@
               left: scrollLeftPos,
               behavior: 'smooth'
             });
-
-            // S'assure que la classe de mise en valeur reste active sur la carte ciblée
             targetCard.classList.add('highlight-card');
           }
         }
