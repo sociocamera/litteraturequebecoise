@@ -8,8 +8,9 @@
     :root {
       --bg-color: #f7f5ef; /* Fond papier parchemin / ivoire clair */
       --card-bg: #ffffff;
-      --card-width: 300px;
-      --card-height: 170px;
+      --card-width: calc((100vw - 8% - (4 * 16px)) / 5); /* Exactement 5 cartes visibles */
+      --card-min-width: 200px;
+      --card-height: calc(((100vw - 8% - (4 * 16px)) / 5) * 9 / 16);
       --accent-color: #8b0000; /* Rouge bordeaux universitaire */
       --accent-hover: #a91d22;
       --gold-accent: #c5a059;
@@ -249,6 +250,7 @@
     /* Cards / Vignettes d'episodes */
     .card {
       flex: 0 0 var(--card-width);
+      min-width: var(--card-min-width);
       height: var(--card-height);
       position: relative;
       border-radius: 4px;
@@ -289,30 +291,34 @@
       opacity: 1;
     }
 
+    /* Modification : Aucun fond de couleur ni transparent, suppression du dégradé de fond */
     .card-info {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 12px 10px;
-      background: linear-gradient(to top, rgba(255,255,255,0.98) 30%, rgba(255,255,255,0.85) 80%, transparent);
+      padding: 10px;
+      background: none; 
     }
 
     .card-title {
       font-size: 0.85rem;
       font-family: 'Georgia', serif;
       font-weight: bold;
-      color: #1a1d20;
+      color: #ffffff;
       line-height: 1.3;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.9), 0 0 2px rgba(0,0,0,0.8);
     }
 
+    /* Modification : Seule la durée possède un très léger halo */
     .card-subtitle {
       font-size: 0.72rem;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      color: var(--accent-color);
+      color: #ffffff;
       margin-top: 4px;
       letter-spacing: 0.3px;
       font-weight: 600;
+      text-shadow: 0 0 4px rgba(0, 0, 0, 0.95), 0 0 2px rgba(0, 0, 0, 0.9);
     }
 
     /* Boutons du carrousel */
@@ -519,67 +525,67 @@
         episodes: [
           { 
             id: 1, 
-            title: "La censure britannique et française", 
+            title: "", 
             duration: "05:55", 
             fileId: "1hQlgrUzqpyGegTMZDSDI_o75Iw0BHdNN", 
-            imageId: "1U3QkhIst4FZqpraaR5C0uUwP66o8lczC",
-            synopsis: "L'histoire de la littérature québécoise se décline comme une lutte séculaire pour la liberté d'expression..."
+            imageId: "1soWO039Dhw_FtkzTiQuY0mD1Z4xqvEo0",
+            synopsis: "Le passage de la censure littéraire française à la censure britannique au Québec s'est principalement produit lors de la Conquête britannique de 1760, lorsque les forces britanniques ont pris le contrôle de la colonie française de la Nouvelle-France, y compris le territoire qui est aujourd'hui le Québec. Ce changement de pouvoir a eu un impact significatif sur de nombreux aspects de la vie au Québec, y compris la censure littéraire."
           },
           { 
             id: 2, 
-            title: "Une censure au cas par cas", 
+            title: "", 
             duration: "03:38", 
             fileId: "1mTV5AJjYdha3TG9Vy40g9lApw7pgZbuG", 
-            imageId: "1rKQ4-YenOa--l1LtUW0gdmluqlxzb43Q",
-            synopsis: "Le passage de la censure littéraire française à la censure britannique au Québec s'est produit lors de la Conquête..."
+            imageId: "1MFLARYp9H9clK-oJ_XU1OmCWl1zCENMS",
+            synopsis: " Sous le régime français, la censure est encore flottante, appliquée au coup par coup. Pas de véritable appareil structuré, pas même d’imprimerie pour centraliser le contrôle. Pourtant, certains gestes frappent l’imaginaire : un livre anti-jésuite jeté aux flammes, ou encore le théâtre placé sous haute surveillance — perçu comme bien plus dangereux que les textes imprimés dans une société où peu savent lire. Puis, en 1764, tout bascule avec l’arrivée des Britanniques et de la toute première imprimerie. Désormais, les journaux deviennent la cible privilégiée des censeurs."
           },
           { 
             id: 3, 
-            title: "La censure imposée par le clergé", 
+            title: "", 
             duration: "04:52", 
             fileId: "1_oGp0hqnHhPUJXeo0QBxz6FYTjCIx4x7", 
-            imageId: "1vgHYEV571T9LGZalxYdOS_LcMro0KDf7",
-            synopsis: "Imaginez le Québec de la fin du XIXe siècle : dans ce climat, écrire n’est jamais un geste innocent..."
+            imageId: "1Ky8ImM3BZKTgLFXdrBKAx9G7ou_sqT1P",
+            synopsis: "Imaginez le Québec de la fin du XIXe siècle : les clochers dominent l’horizon, et l’Église règne sur les esprits autant que sur les consciences. Dans ce climat, écrire n’est jamais un geste innocent. C’est un pari risqué, parfois même un acte de défi. Prenons l’exemple de Marie Calumet, ce roman de Rodolphe Girard publié en 1904. Il dépeint avec ironie la vie paroissiale, et cela suffit pour déclencher la colère des autorités religieuses. Le verdict tombe : interdiction pure et simple. Le livre est retiré des librairies, condamné au silence officiel. "
           },
           { 
             id: 4, 
-            title: "Quand l'Église faisait taire les idées", 
+            title: "", 
             duration: "04:26", 
             fileId: "1PNAUwcrUyWsXWPZ3RhFxfzed7IWqmVhG", 
-            imageId: "1x-WvZDpN-Cr6GUT7aiaAXBgt4vL3WSk-",
-            synopsis: "Nous sommes en 1840. Montréal accueille un nouvel évêque : Monseigneur Bourget..."
+            imageId: "1h-Uq9hw_Z3zgeTxtsR5-3voa_3jnrNOP",
+            synopsis: "Nous sommes en 1840. Montréal accueille un nouvel évêque : Monseigneur Bourget. Et dès son arrivée, il impose un climat de fer. L’Institut canadien de Montréal, symbole d’ouverture intellectuelle, devient l’ennemi à abattre. Excommunications, interdictions, condamnations… tout ce qui s’écarte de la morale catholique est visé. C’est une censure brutale, presque inquisitoriale. Mais le temps passe, et avec le XXe siècle surgissent de nouveaux défis : journaux, radio, cinéma, littérature populaire. Impossible pour l’Église de tout interdire. Et puis, il y a l’autre visage, plus intime encore : l’autocensure. Celle qui fait trembler la main de l’auteur avant même d’écrire. Claude-Henri Grignon, avec La Scouine, en fait l’expérience : comment oser critiquer une société dominée par le clergé sans risquer l’exclusion ou la réprobation publique ? Dans ce contexte, la plume s’alourdit, la voix se brise, et l’imaginaire se réduit à ce qui peut être toléré."
           },
           { 
             id: 5, 
-            title: "La fin de la censure cléricale", 
+            title: "", 
             duration: "04:00", 
             fileId: "1s8sEwSDHv1JNNwgh1myhblTfBNFTlROa", 
-            imageId: "1JwUVquV-FMKjBibzL1OEaYHBbduR0rc4",
-            synopsis: "L’invasion des Crime Comics pousse l’Église à transférer la censure au système judiciaire..."
+            imageId: "1sZnO80Myzzogp8oUM6SG9CJlnZpbwEDj",
+            synopsis: "L’invasion des Crime Comics et la prolifération de publications séditieuses bousculent l’ordre moral traditionnel, forçant l’Église à abdiquer son magistère répressif au profit de l’appareil judiciaire. Cette mutation institutionnelle trouve son assise juridique dans la loi fédérale sur l’obscénité de 1959. Dès lors, les prétoires s'animent de procès retentissants, à l’instar de celui intenté contre L’amant de Lady Chatterley. Ces joutes judiciaires redéfinissent les frontières de l'acceptable, érigeant un précédent jurisprudentiel fondamental. En reconnaissant la valeur intrinsèque et le statut esthétique particulier des œuvres littéraires, la justice les soustrait définitivement aux fourches caudines d’une censure dogmatique, aveugle à la complexité de la création artistique."
           },
           { 
             id: 6, 
-            title: "La censure de « Nègres blancs d'Amérique »", 
+            title: "", 
             duration: "03:00", 
             fileId: "1mgTWuTlJ1ai8dFKjpeDqX65qCCz3K807", 
-            imageId: "1HXXFIF3vwMyYtnyCgBzNgb9YAhCkb-QK",
-            synopsis: "Il y a des livres et des pièces de théâtre qui n’ont pas seulement dérangé..."
+            imageId: "16x75st1tBsA2rQOuiwPzMwbKi1kfpYYC",
+            synopsis: "Il y a des livres et des pièces de théâtre qui n’ont pas seulement dérangé… ils ont carrément secoué tout un système. Prenez Nègres blancs d’Amérique, de Pierre Vallières : à sa parution, l’ouvrage est saisi, retiré du public. Une censure radicale, brutale, comme si on avait voulu effacer d’un seul coup la voix de son auteur. Quelques années plus tard, un autre choc : Les Fées ont soif, de Denise Boucher. Cette pièce devient le centre d’une tempête médiatique et sociale. Elle est attaquée de toutes parts : par la justice, par le clergé, et par des institutions qui y voyaient une menace pour l’ordre moral. Et pourtant… ironie du sort, ces œuvres que l’on voulait réduire au silence sont aujourd’hui considérées comme majeures."
           },
           { 
             id: 7, 
-            title: "La censure militante", 
+            title: "", 
             duration: "04:45", 
             fileId: "1spUFC4Ug88ejUHGPcVs_YDSjpAO0fbdv", 
-            imageId: "1Qzl6L1C31lKzEyWf8qdN0iDU24DrGCfF",
-            synopsis: "Depuis quelques années, le Québec est le théâtre d’une forme nouvelle de censure..."
+            imageId: "1aJmkJgkOCb5iCg-JCexFbpklJFYYQV-T",
+            synopsis: "Depuis quelques années, le Québec est le théâtre d’une forme nouvelle de censure, moins verticale qu’autrefois, mais plus insidieuse et virulente, car issue de groupes militants organisés. Pierre Hébert s’est penché sur cette mutation en analysant un cas emblématique : celui de l’auteur Yvan Godbout. Accusé à tort de production de pornographie juvénile pour un passage fictif dans un roman d’horreur, Godbout a été au cœur d’une chasse aux sorcières moderne qui en dit long sur l’état de la liberté d’expression au Québec. Cette inquisition contemporaine ne s’embarrasse plus des anciennes nuances cléricales, préférant jeter en pâture des créateurs sur la place publique numérique. La judiciarisation de l’écriture horrifique illustre une panique morale redoutable, où le délire interprétatif de censeurs zélés étouffe toute velléité d’exploration littéraire sombre."
           },
           { 
             id: 8, 
-            title: "Censure littéraire et recherche", 
+            title: "", 
             duration: "03:31", 
             fileId: "1Z3UMmdqry9Mt7zX8l4FRVCMYE9Ae1eyb", 
-            imageId: "16mFRnhRFA_MGEU744V1vvaOqrXX_2Z7p",
-            synopsis: "L'art de la Renaissance a transformé le corps humain en un véritable culte esthétique..."
+            imageId: "11uuzMuJxiepg1LJMVAzX0SkgsWK3l38D",
+            synopsis: "L'histoire de la censure littéraire au Québec ne se résume pas à une simple liste d'interdits, mais se révèle être un laboratoire social où s'entrechoquent les velléités de contrôle moral et l'éveil d'une conscience nationale. Pierre Hébert, dans cet exposé lié à l'Atlas littéraire du Québec, démontre avec une précision chirurgicale comment l'Index et les interventions religieuses du XIXe siècle ont façonné un imaginaire de la contrainte, transformant l'acte de lire en un geste de résistance sourde. On y voit la fragilité de la parole publique face à des institutions qui, sous couvert de protection des mœurs, cherchaient avant tout à maintenir une hégémonie culturelle sur une population en pleine mutation. Cette dynamique de l'effacement, loin de n'être qu'un vestige du passé, continue de hanter nos structures contemporaines de diffusion du savoir, rappelant que la liberté d'expression est une conquête permanente et jamais acquise."
           },
         ]
       },
@@ -589,67 +595,67 @@
         episodes: [
           { 
             id: 1, 
-            title: "Du XIXe siècle à aujourd'hui", 
+            title: "", 
             duration: "10:24", 
             fileId: "1z7Wk-zcvVXubk7g66QMGmFF0aWYaC1Dr", 
-            imageId: "13rGFMbhpCBBJCz7wYOxBk0K7mV8rvEyd",
-            synopsis: "Ces entretiens avec Aurélien Boivin explorent l’histoire du conte québécois..."
+            imageId: "1y4g0Gto5RMY9H_ikJEtnoYXCWOBFqDME",
+            synopsis: "Ces entretiens avec Aurélien Boivin explorent l’histoire du conte québécois du XIXe au XXIe siècle. Il analyse les typologies du conte — réaliste, historique, surnaturel — et évoque son évolution au XXe siècle, avec l’essor de collectes ethnographiques et le renouveau scénique contemporain. Des figures marquantes comme Jocelyn Bérubé, Michel Faubert et Fred Pellerin sont mises en lumière. Cette transmission orale séculaire, longtemps ancrée dans les veillées villageoises, témoigne d'une résilience culturelle remarquable face aux uniformisations de la modernité (Boivin, 2015). En revisitant les figures de proue de la parole contée, ces échanges soulignent combien le verbe populaire nourrit l'imaginaire collectif national."
           },
           { 
             id: 2, 
-            title: "Contes surnaturels", 
+            title: "", 
             duration: "09:59", 
             fileId: "18JSu0SFNHMnPx_huxCLJI0VPM33RD2df", 
-            imageId: "1jjDMlHQ7_hgGyPHcChXOhrDylz7jVBLn",
-            synopsis: "Les contes surnaturels québécois s'apparentent intimement à la légende..."
+            imageId: "1LtDd20_o2yNKUIV7tOmVolggZF1QN391",
+            synopsis: "Les contes surnaturels québécois, enracinés dans la tradition catholique, mêlent fantastique et légende. Ils mettent en scène le diable, les loups-garous, les feux follets et d’autres figures mythiques, souvent liées au péché et à la rédemption. Ces récits, portés par un imaginaire foisonnant, fascinent et renforcent l’adhésion populaire. Cette cosmologie fantastique structure un ordre moral rigoureux où chaque transgression nocturne expose l’âme pécheresse aux pièges du Malin. En ancrant le surnaturel dans le terroir, ces paraboles paysannes conjurent l'angoisse existentielle des communautés rurales."
           },
           { 
             id: 3, 
-            title: "Contes de l'exil", 
+            title: "", 
             duration: "05:16", 
             fileId: "1lRJkqprqtOTPR5-R2xIQgbeMNjJixwXw", 
-            imageId: "1G3NE6jO_AE9B8ovwM95fUQXzrxUPjlHd",
-            synopsis: "Cette vidéo explore les thèmes majeurs de la littérature canadienne-française..."
+            imageId: "19AM7-_Fch6B0TykZrs2UTs041M8GTsWc",
+            synopsis: "Les contes abordent l’exil des Canadiens français, souvent dépeint comme un échec, et soulignent le retour du fils prodigue. D’autres récits puisent dans l’histoire nationale pour populariser des figures héroïques et inspirer le roman historique, contribuant ainsi à la construction d’une identité et d’une mémoire collective. Cette douloureuse rupture géographique et culturelle avec la terre natale cristallise les hantises d’une société en quête de repères. En érigeant l'enracinement en dogme salvateur, ces fictions mémorielles transforment l'exode économique américain en une tragédie identitaire fondatrice, cimentant durablement la conscience patriotique du groupe."
           },
           { 
             id: 4, 
-            title: "Le renouveau du conte", 
+            title: "", 
             duration: "09:03", 
             fileId: "1n9n9E8e3EWlolp4wbUBEd--rfsnOLz4m", 
-            imageId: "12GBCeKoqwtKNM8PBzRzAbRTY02EUa3Os",
-            synopsis: "Durant les quatre premières décennies du XXe siècle, le conte québécois..."
+            imageId: "1rUh99amdricUko5Cg0jzYv6LbtryM5tL",
+            synopsis: "Au XXᵉ siècle, le conte québécois poursuit d’abord ses thèmes régionalistes, célébrant la terre et la tradition. Il évolue ensuite vers des évocations nostalgiques du passé et des portraits de figures populaires, visant à transmettre la mémoire collective. Ce renouveau littéraire inscrit le conte dans une continuité patrimoniale. Cette mutation esthétique accompagne le passage d'une société agraire vers une modernité urbaine tumultueuse. En fixant par écrit ces traditions mémorielles, les écrivains érigent un rempart salvateur contre l'oubli. Cette patrimonialisation du verbe populaire réinvente l'identité nationale en ancrant la fiction dans la glaise d'un folklore en voie de disparition rapide."
           },
           { 
             id: 5, 
-            title: "L'apport de Marius Barbeau", 
+            title: "", 
             duration: "07:45", 
             fileId: "1xY7KmXJB_4GWzQP8LmX2iOU7r2rK31--", 
-            imageId: "1oe7g3O2GCbeVpQjlO8t0QOv98gYyLYJu",
-            synopsis: "L’anthropologue Marius Barbeau révolutionne le paysage culturel..."
+            imageId: "19CtA0VQPCA7mrZup7wPNwn-aM4G3oPIl",
+            synopsis: "Marius Barbeau révolutionne le conte québécois en recueillant des récits auprès de conteurs amateurs, enrichissant ainsi le folklore. Ce travail se poursuit avec Luc Lacoursière et l’essor des archives de folklore. Dès les années 1960, le conte évolue vers le fantastique, assurant sa pérennité littéraire. Cette démarche pionnière transforme la collecte orale en une véritable science anthropologique rigoureuse. En sauvegardant ces voix anonymes menacées d'extinction, ces chercheurs fondent les bases d'un patrimoine mémorial inestimable. Le basculement vers le fantastique moderne libère ensuite le genre des carcans traditionalistes strictes, propulsant le récit vernaculaire au cœur de l'avant-garde littéraire québécoise contemporaine."
           },
           { 
             id: 6, 
-            title: "Conteurs du XXe siècle", 
+            title: "", 
             duration: "06:46", 
             fileId: "1CRpdDhTeWpZqJ6cnPiqDXqOSXqdJ7xE1", 
-            imageId: "1n445cQmfepEjpgPZApeodqRNey4GSpK0",
-            synopsis: "La résurrection du conte québécois à la fin du XXe siècle..."
+            imageId: "1MtWqa87MPwZI5a8qeuAsDizzg5Dz0ZWw",
+            synopsis: "Jocelyn Bérubé, pionnier du renouveau du conte québécois, allie tradition et modernité. Avec des récits vibrants comme Portrait en blues de travail, il réinvente des figures mythiques et historiques, mêlant fantastique et critique sociale. Son œuvre célèbre l’imaginaire populaire tout en dénonçant les injustices historiques et culturelles. En insuflant une énergie théâtrale inédite à la parole contée, il arrache le folklore à son immobilisme muséal. Cette réinvention poétique politise le verbe ancestral, transformant chaque prestation scénique en un acte de résistance mémorielle contre l’effacement des classes laborieuses et la domination culturelle."
           },
           { 
             id: 7, 
-            title: "Conteurs d'aujourd'hui", 
+            title: "", 
             duration: "09:10", 
             fileId: "1H6Xall-h5DBz3SzXIwr2REo-aUta5eUN", 
-            imageId: "1Ps5dDOap-3YJt0GrtpWQoDoAEhUWlk-L",
-            synopsis: "Au XXIe siècle, le conte québécois s'affirme pleinement comme un art vivant..."
+            imageId: "1J2jEGUboZUT0Z-agHd-RAAsqxD93USes",
+            synopsis: "Le renouveau du conte québécois est aussi porté par des figures marquantes comme Michel Faubert, Jean-Marc Massie et Fred Pellerin. Ces conteurs réinventent la tradition avec des récits empreints d’humour, de merveilleux et de poésie, mêlant exagération, critique sociale et oralité, faisant du conte un véritable art de la scène.   En redéfinissant les codes de la performance vivante, ces artistes propulsent le patrimoine oral dans une modernité percutante et virtuose. Leurs univers singuliers transforment la gouaille populaire en une véritable cathédrale verbale, où l'autodérision le dispute à la fulgurance poétique pour envoûter les publics contemporains."
           },
           { 
             id: 8, 
-            title: "L'édition et la diffusion", 
+            title: "", 
             duration: "04:38", 
             fileId: "14VZZQo722KK_JHNR4wIOaSXagV-wWJTy", 
-            imageId: "10lFQcmlqCrQUkCKzfGOdWBQlOjqaRXLp",
-            synopsis: "La diffusion littéraire et institutionnelle des contes et légendes..."
+            imageId: "1Vf7Hc9D3ees-yf9X3cE6psAHfoyYCoB7",
+            synopsis: "La maison d’édition Planète Rebelle a joué un rôle clé dans le renouveau du conte québécois, publiant de nombreux recueils et intégrant des enregistrements audios. D’autres initiatives, comme les collections régionales et le travail de folkloristes, ont contribué à la transmission du conte, assurant son ancrage dans l’oralité contemporaine. En offrant un écrin éditorial audacieux à ces paroles vagabondes, cette maison d'édition institutionnalise le médium sonore comme prolongement naturel du texte imprimé. Cette synergie multimédia insuffle un souffle inédit à la littérature orale, transformant chaque publication en un objet patrimonial vivant qui dynamite les frontières traditionnelles de l'écrit académique."
           },
         ]
       },
@@ -657,8 +663,30 @@
         id: "s3",
         title: "Littérature de la diversité",
         episodes: [
-          { id: 1, title: "Épisode 1 : La Raison et l'Esprit", duration: "", fileId: testVideoFileId, image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=600" },
-          { id: 2, title: "Épisode 2 : L'Encyclopédie", duration: "", fileId: testVideoFileId, image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=600" }
+          { 
+            id: 1, 
+            title: "", 
+            duration: "47:42", 
+            fileId: "16NYibI6p1xwzpB2x9NYuIMog17VvXB1A", 
+            imageId: "1rE8YuniQWnw5sSaxBIbYfkz4KbANKt8k",
+            synopsis: "Marie-Hélène Jeannotte explore l’essor de la littérature autochtone au Québec, porté par une présence accrue des auteurs des Premières Nations et un intérêt croissant des lecteurs et critiques. Récompensée par divers prix, cette littérature se distingue par sa diversité et sa richesse, reflétant les expériences autochtones. Récits de vie, poésie, fiction, bande dessinée et théâtre constituent autant de moyens de transmettre et partager traditions, valeurs et croyances auprès d’un public élargi. Au-delà du simple renouvellement esthétique, cet élan littéraire s'enracine dans une démarche de réappropriation identitaire et mémorielle profonde. En brisant de longs silences institutionnels, les voix des Premières Nations redéfinissent les contours de l'imaginaire national et offrent une perspective essentielle sur l'histoire, les traumatismes historiques et la résilience collective des communautés."
+          },
+          { 
+            id: 2, 
+            title: "", 
+            duration: "48:42", 
+            fileId: "1tJXsr4JatLGZ9hW6EfRsvoRKLhZfW4zZ", 
+            imageId: "1VPkv44ZyVjQo1GwsXwtW_msZtt_JitJB",
+            synopsis: "Lori Saint-Martin montre comment le mouvement féministe des années 1970 a permis aux écrivaines québécoises d’émerger dans divers genres littéraires. Leurs œuvres explorent les expériences féminines, les questions de genre et l’égalité. Depuis 2010, leurs thématiques s’élargissent à l’immigration, la vie urbaine et les relations interculturelles. Certaines ont remporté des prix prestigieux, tandis qu’un intérêt grandissant se manifeste pour les écrivaines autochtones et migrantes. En dynamisant ainsi le paysage éditorial, ces voix affirment une polyphonie textuelle indispensable. Cette vitalité créatrice interroge sans cesse les structures traditionnelles de la société, bousculant les hiérarchies littéraires établies pour ouvrir la voie à des récits pluriels où se croisent mémoires exilées, quêtes identitaires et réinventions formelles d'une modernité littéraire en perpétuelle effervescence."
+          },
+          { 
+            id: 3, 
+            title: "", 
+            duration: "49:40", 
+            fileId: "100X2HzqHj4DxQGpsmwK0M-qROf9C-ctp", 
+            imageId: "1b8EvPpwSZe7zBuYEt-Xpw03lP6BbWXPY",
+            synopsis: "Catherine Khordoc retrace l’évolution des littératures migrantes au Québec. Initialement dominées par des auteurs francophones du Canada dans les années 1970, elles s’élargissent dans les années 1980-1990 avec des écrivains d’Afrique et d’Haïti. Dès les années 2000, la diversité s’accroît avec des auteurs d’Asie, d’Amérique latine et d’Europe de l’Est. Aujourd’hui, ces littératures gagnent en visibilité et reconnaissance grâce à une production variée de romans, nouvelles, poèmes et essais. En redéfinissant les frontières symboliques de l'identité québécoise, ces écritures de la traversée introduisent une complexité textuelle salutaire qui décloisonne l'horizon national. À travers le prisme de l'exil et du métissage culturel, les créateurs questionnent les notions d'appartenance et d'altérité, transformant la distance géographique en un espace fertile de renouvellement esthétique, de dialogue interculturel et d'affirmation poétique au cœur de la modernité littéraire."
+          },
         ]
       },
       {
@@ -725,7 +753,6 @@
       const title = document.createElement('h2');
       title.className = 'season-title';
       
-      // Insertion du titre et du nombre de vidéos entre parenthèses de manière discrète
       const episodeCount = season.episodes ? season.episodes.length : 0;
       title.innerHTML = `${season.title} <span class="episode-count">(${episodeCount})</span>`;
       
