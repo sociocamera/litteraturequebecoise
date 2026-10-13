@@ -3,13 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Littérature Québécoise</title>
+  <title>Voyage en Littérature Québécoise - Atlas et Archives</title>
   <style>
     :root {
-      --bg-color: #141414;
+      --bg-color: #f7f5ef; /* Fond papier parchemin / ivoire clair */
+      --card-bg: #ffffff;
       --card-width: 300px;
       --card-height: 170px;
-      --accent-color: #e50914;
+      --accent-color: #8b0000; /* Rouge bordeaux universitaire */
+      --accent-hover: #a91d22;
+      --gold-accent: #c5a059;
+      --text-main: #2c3034; /* Gris très sombre pour la lecture */
+      --text-muted: #6c757d;
+      --border-color: #e0dcd0;
     }
 
     * {
@@ -20,67 +26,74 @@
 
     body {
       background-color: var(--bg-color);
-      color: #ffffff;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      color: var(--text-main);
+      font-family: 'Georgia', serif;
       overflow-x: hidden;
     }
 
-    /* En-tête / Navigation style Netflix */
+    /* En-tête / Navigation institutionnelle claire */
     header {
       position: fixed;
       top: 0;
       width: 100%;
-      height: 68px;
+      height: 72px;
       padding: 0 4%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: linear-gradient(180deg, rgba(0,0,0,0.8) 10%, transparent);
+      background: rgba(247, 245, 239, 0.95);
+      border-bottom: 1px solid var(--border-color);
       z-index: 100;
-      transition: background-color 0.4s;
+      transition: background-color 0.4s, box-shadow 0.4s;
     }
 
     header.scrolled {
-      background-color: #141414;
+      background-color: #ffffff;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
     }
 
     .logo {
       color: var(--accent-color);
-      font-size: 1.8rem;
+      font-size: 1.4rem;
       font-weight: bold;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       text-transform: uppercase;
+      font-family: 'Georgia', serif;
     }
 
     nav ul {
       display: flex;
       list-style: none;
-      gap: 20px;
+      gap: 22px;
     }
 
     nav a {
-      color: #e5e5e5;
+      color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       transition: color 0.3s;
     }
 
     nav a:hover {
-      color: #b3b3b3;
+      color: var(--accent-color);
     }
 
-    /* Hero Banner interactif avec vidéo au survol */
+    /* Hero Banner style Étude / Recherche sur fond lumineux */
     .hero {
       position: relative;
-      height: 52vh;
-      min-height: 380px;
-      background: #141414;
+      height: 54vh;
+      min-height: 400px;
+      background: #eae5d9;
       display: flex;
       align-items: flex-end;
-      padding: 0 4% 30px 4%;
+      padding: 0 4% 35px 4%;
       margin-top: 98px;
       overflow: hidden;
       cursor: default;
+      border-bottom: 1px solid var(--border-color);
     }
 
     .hero-bg-image {
@@ -92,8 +105,7 @@
       background: url('https://lh3.googleusercontent.com/d/1NB1na-U9xh_lmqm9BrHHHifNMFKunY81') center/cover no-repeat;
       z-index: 1;
       transition: opacity 0.4s ease;
-      /* Rend l'image de fond plus claire et légèrement rehaussée en contraste */
-      filter: brightness(0.90) contrast(1.05);
+      filter: brightness(0.95) contrast(1.05);
     }
 
     .hero-bg-video {
@@ -119,9 +131,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      /* Masque assombrissant adouci pour laisser passer plus de lumière */
-      background: linear-gradient(to top, var(--bg-color) 0%, transparent 60%),
-                  radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%);
+      background: linear-gradient(to top, rgba(247,245,239,0.98) 0%, rgba(247,245,239,0.5) 60%, rgba(247,245,239,0.2) 100%);
       z-index: 3;
       pointer-events: none;
     }
@@ -134,123 +144,87 @@
     }
 
     .hero-content h1 {
-      font-size: 3rem;
+      font-size: 2.8rem;
       margin-bottom: 15px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+      font-family: 'Georgia', serif;
+      color: #1a1d20;
+      text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+      letter-spacing: 0.5px;
     }
 
     .hero-content p {
-      font-size: 1.1rem;
-      line-height: 1.4;
-      color: #cccccc;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #4a4f54;
       margin-bottom: 20px;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-      max-width: 800px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 850px;
+      font-weight: 400;
     }
 
-    /* Conteneur des boutons aligné sur une seule ligne sans scrollbar */
     .hero-buttons {
       display: flex;
       flex-wrap: nowrap;
-      gap: 10px;
+      gap: 12px;
       overflow: visible;
     }
 
     .hero-buttons button,
     .hero-buttons a.btn-link {
-      padding: 9px 18px;
-      font-size: 0.95rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 4px;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 600;
+      border: 1px solid var(--accent-color);
+      border-radius: 3px;
       cursor: pointer;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       white-space: nowrap;
-      transition: opacity 0.2s;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
     }
 
     .btn-play {
-      background-color: #ffffff;
-      color: #000000;
-    }
-
-    .btn-info {
-      background-color: rgba(109, 109, 110, 0.7);
+      background-color: var(--accent-color);
       color: #ffffff;
     }
 
-    .btn-thesis,
-    .btn-amazon {
-      background-color: rgba(109, 109, 110, 0.7);
-      color: #ffffff;
+    .btn-play:hover {
+      background-color: var(--accent-hover);
     }
 
-    .hero-buttons button:hover,
-    .hero-buttons a.btn-link:hover {
-      opacity: 0.8;
-    }
-
-    /* Rangees de Saisons */
+    /* Rangees de Saisons / Thématiques */
     .content-container {
-      padding: 20px 0 60px 0;
-      margin-top: -20px;
+      padding: 30px 0 70px 0;
       position: relative;
       z-index: 10;
     }
 
     .season-row {
-      margin-bottom: 40px;
+      margin-bottom: 45px;
       padding: 0 4%;
     }
 
     .season-title {
-      font-size: 1.4rem;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: #e5e5e5;
+      font-size: 1.35rem;
+      font-weight: normal;
+      font-family: 'Georgia', serif;
+      margin-bottom: 15px;
+      color: var(--text-main);
+      border-left: 3px solid var(--accent-color);
+      padding-left: 12px;
     }
 
-    /* Style du badge "Nouveaux épisodes" */
-    .badge-new-episodes {
-      display: inline-flex;
-      align-items: center;
-      background-color: #e50914;
-      color: #ffffff;
-      font-size: 0.75rem;
-      font-weight: bold;
-      text-transform: uppercase;
-      padding: 3px 8px;
-      border-radius: 2px;
-      margin-left: 12px;
-      vertical-align: middle;
-      text-decoration: none;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-      transition: background-color 0.2s, transform 0.2s;
-      cursor: pointer;
-    }
-
-    .badge-new-episodes:hover {
-      background-color: #f40612;
-      transform: scale(1.05);
-      color: #ffffff;
-    }
-
-    .badge-dot {
-      width: 6px;
-      height: 6px;
-      background-color: #ffffff;
-      border-radius: 50%;
-      margin-right: 6px;
-      animation: pulse-dot 1.5s infinite;
-    }
-
-    @keyframes pulse-dot {
-      0% { transform: scale(0.95); opacity: 1; }
-      50% { transform: scale(1.3); opacity: 0.6; }
-      100% { transform: scale(0.95); opacity: 1; }
+    /* Style discret pour le compteur de vidéos entre parenthèses */
+    .episode-count {
+      font-size: 0.95rem;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--text-muted);
+      font-weight: normal;
+      margin-left: 10px;
     }
 
     /* Carrousel */
@@ -260,7 +234,7 @@
 
     .carousel {
       display: flex;
-      gap: 12px;
+      gap: 16px;
       overflow-x: auto;
       scroll-behavior: smooth;
       padding: 15px 0;
@@ -280,22 +254,17 @@
       border-radius: 4px;
       overflow: hidden;
       cursor: pointer;
-      background-color: #2f2f2f;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     .card:hover {
-      transform: scale(1.12);
+      transform: translateY(-6px);
       z-index: 20;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.8);
-    }
-
-    /* Classe pour maintenir le focus permanent sur la carte ciblée */
-    .card.highlight-card {
-      transform: scale(1.12);
-      z-index: 20;
-      box-shadow: 0 0 20px rgba(229, 9, 20, 0.7);
-      border: 2px solid var(--accent-color);
+      border-color: var(--accent-color);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
     }
 
     .card img {
@@ -325,20 +294,25 @@
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 10px;
-      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-      opacity: 1;
+      padding: 12px 10px;
+      background: linear-gradient(to top, rgba(255,255,255,0.98) 30%, rgba(255,255,255,0.85) 80%, transparent);
     }
 
     .card-title {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+      font-family: 'Georgia', serif;
       font-weight: bold;
+      color: #1a1d20;
+      line-height: 1.3;
     }
 
     .card-subtitle {
-      font-size: 0.75rem;
-      color: #aaaaaa;
-      margin-top: 2px;
+      font-size: 0.72rem;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--accent-color);
+      margin-top: 4px;
+      letter-spacing: 0.3px;
+      font-weight: 600;
     }
 
     /* Boutons du carrousel */
@@ -346,19 +320,20 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 40px;
+      width: 45px;
       height: 100%;
-      background: rgba(0,0,0,0.5);
-      border: none;
-      color: white;
-      font-size: 2rem;
+      background: rgba(247, 245, 239, 0.9);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-size: 1.5rem;
       cursor: pointer;
       z-index: 25;
       display: flex;
       align-items: center;
       justify-content: center;
       opacity: 0;
-      transition: opacity 0.3s, background 0.3s;
+      transition: opacity 0.3s, background 0.3s, color 0.3s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
 
     .carousel-wrapper:hover .nav-btn {
@@ -366,18 +341,20 @@
     }
 
     .nav-btn:hover {
-      background: rgba(0,0,0,0.8);
+      background: #ffffff;
+      color: var(--accent-color);
     }
 
-    .nav-btn.left { left: -4%; }
-    .nav-btn.right { right: -4%; }
+    .nav-btn.left { left: -3.5%; }
+    .nav-btn.right { right: -3.5%; }
 
-    /* Modal lecteur Google Drive avec panneau latéral */
+    /* Modal lecteur Google Drive sur fond clair/tamisé */
     .modal {
       display: none;
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.9);
+      background: rgba(20, 22, 25, 0.65);
+      backdrop-filter: blur(4px);
       z-index: 1000;
       justify-content: center;
       align-items: center;
@@ -392,10 +369,11 @@
       position: relative;
       width: 95%;
       max-width: 1300px;
-      background: #181818;
-      border-radius: 8px;
+      background-color: #ffffff;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
       overflow: hidden;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.9);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
       display: flex;
       flex-direction: row;
       align-items: stretch;
@@ -426,116 +404,55 @@
 
     .modal-text-container {
       flex: 1;
-      padding: 25px 30px;
+      padding: 30px;
       display: flex;
       flex-direction: column;
-      background: #181818;
-      border-left: 1px solid #2a2a2a;
+      background: #fdfcfa;
+      border-left: 1px solid var(--border-color);
       max-height: 100%;
       overflow-y: auto; 
     }
 
     .modal-text-container::-webkit-scrollbar {
-      width: 6px;
+      width: 5px;
     }
 
     .modal-text-container::-webkit-scrollbar-track {
-      background: #181818;
+      background: #fdfcfa;
     }
 
     .modal-text-container::-webkit-scrollbar-thumb {
-      background: #444444;
-      border-radius: 3px;
-    }
-
-    .modal-text-container::-webkit-scrollbar-thumb:hover {
-      background: #666666;
+      background: #ccc;
+      border-radius: 2px;
     }
 
     .modal-text-container h3 {
-      font-size: 1.3rem;
-      margin-bottom: 12px;
-      color: #ffffff;
+      font-size: 1.25rem;
+      font-family: 'Georgia', serif;
+      margin-bottom: 15px;
+      color: #1a1d20;
       border-bottom: 2px solid var(--accent-color);
-      padding-bottom: 6px;
-      display: inline-block;
+      padding-bottom: 8px;
     }
 
     .modal-text-container p {
       font-size: 0.95rem;
-      line-height: 1.5;
-      color: #d1d1d1;
-      text-align: justify;
-    }
-
-    .modal-text-container p a {
-      color: #ff6b6b;
-      text-decoration: underline;
-    }
-
-    .modal-text-container p a:hover {
-      color: #ff9999;
-    }
-
-    /* Modal "Plus d'infos" spécifique */
-    .info-modal-content {
-      position: relative;
-      width: 90%;
-      max-width: 750px;
-      background: #181818;
-      border-radius: 8px;
-      padding: 40px 35px 35px 35px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.8);
-      border: 1px solid #333;
-      max-height: 85vh;
-      overflow-y: auto;
-    }
-
-    .info-modal-content h2 {
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-      color: #ffffff;
-      border-bottom: 2px solid var(--accent-color);
-      padding-bottom: 10px;
-      display: inline-block;
-    }
-
-    .info-text-block {
-      font-size: 1.05rem;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       line-height: 1.6;
-      color: #d1d1d1;
-      margin-bottom: 20px;
+      color: #4a4f54;
       text-align: justify;
-    }
-
-    .info-highlight {
-      background: rgba(229, 9, 20, 0.1);
-      border-left: 4px solid var(--accent-color);
-      padding: 15px 20px;
-      border-radius: 0 4px 4px 0;
-      color: #e5e5e5;
-      font-style: italic;
-    }
-
-    .info-highlight a {
-      color: #ff6b6b;
-      text-decoration: underline;
-      font-weight: 500;
-    }
-
-    .info-highlight a:hover {
-      color: #ff9999;
     }
 
     .close-btn {
       position: absolute;
       top: 15px;
       right: 20px;
-      color: white;
-      font-size: 2.5rem;
+      color: #555;
+      font-size: 2rem;
       cursor: pointer;
       z-index: 1010;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+      font-family: sans-serif;
+      transition: color 0.2s;
     }
 
     .close-btn:hover {
@@ -546,18 +463,18 @@
 <body>
 
   <header id="navbar">
-    <div class="logo">LITTÉRATURE</div>
+    <div class="logo">Littérature Québécoise</div>
     <nav>
       <ul>
         <li><a href="#">Accueil</a></li>
         <li><a href="#s1">Censure littéraire</a></li>
         <li><a href="#s2">Contes et légendes</a></li>
-        <li><a href="#s3">Littératures de la diversité</a></li>
-        <li><a href="#s4">Poésie québécoise</a></li>
-        <li><a href="#s5">Polars québécoise</a></li>
-        <li><a href="#s6">Romans historiques</a></li>
+        <li><a href="#s3">Diversité</a></li>
+        <li><a href="#s4">Poésie</a></li>
+        <li><a href="#s5">Polars</a></li>
+        <li><a href="#s6">Historiques</a></li>
         <li><a href="#s7">Romans du pays</a></li>
-        <li><a href="#s8">Romans psychologiques</a></li>
+        <li><a href="#s8">Psychologiques</a></li>
       </ul>
     </nav>
   </header>
@@ -567,10 +484,10 @@
     <video class="hero-bg-video" id="heroVideo" muted loop preload="metadata" src="https://drive.google.com/uc?export=download&id=1bf1izrxofAyoAsUn7g-QclbvITF_eT6B"></video>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <h1>Vogage en Littérature Québécoise</h1>
-      <p>Conçue par Bernard Andrès et réalisée par Pierre Fraser sous l'égide de l'AIEQ, la série documentaire <i>Voyage en Littérature Québécoise</i> propose une exploration captivante de l'imaginaire national. À travers des entretiens éclairants ancrés dans l'Atlas littéraire du Québec, elle dévoile la richesse, la diversité et la profondeur historique des voix d'ici.</p>
+      <h1>Voyage en Littérature Québécoise</h1>
+      <p>Conçue par Bernard Andrès et réalisée per Pierre Fraser sous l'égide de l'AIEQ, la série documentaire propose une exploration critique de l'imaginaire national à travers les archives de l'Atlas littéraire du Québec.</p>
       <div class="hero-buttons">
-        <button class="btn-play" onclick="playDriveVideo('1Uta9pzetT-c4aRRhM3xoC6fo07_3TFN-', 'Bande-annonce')">► Bande-annonce</button>
+        <button class="btn-play" onclick="playDriveVideo('1Uta9pzetT-c4aRRhM3xoC6fo07_3TFN-', 'Bande-annonce')">Consulter la bande-annonce</button>
       </div>
     </div>
   </section>
@@ -585,31 +502,15 @@
         <iframe id="drivePlayer" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
       <div class="modal-text-container" id="modalTextContainer">
-        <h3 id="modalEpisodeTitle">Extrait de la thèse</h3>
-        <p id="modalEpisodeText">Chargement de l'extrait...</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal "Plus d'infos" -->
-  <div class="modal" id="infoModal">
-    <div class="info-modal-content">
-      <span class="close-btn" onclick="closeInfoModal()">&times;</span>
-      <h2>À propos de la série</h2>
-      <p class="info-text-block">
-        Conçue par Bernard Andrès et réalisée par Pierre Fraser sous l'égide de l'AIEQ, la série documentaire <i>Voyage en Littérature Québécoise</i> propose une exploration captivante de l'imaginaire national. À travers des entretiens éclairants ancrés dans l'Atlas littéraire du Québec, elle dévoile la richesse, la diversité et la profondeur historique des voix d'ici.
-      </p>
-      <div class="info-highlight">
-        Conçue par Bernard Andrès et réalisée par Pierre Fraser sous l'égide de l'AIEQ, la série documentaire <i>Voyage en Littérature Québécoise</i> propose une exploration captivante de l'imaginaire national. À travers des entretiens éclairants ancrés dans l'Atlas littéraire du Québec, elle dévoile la richesse, la diversité et la profondeur historique des voix d'ici.
+        <h3 id="modalEpisodeTitle">Notice documentaire</h3>
+        <p id="modalEpisodeText">Chargement de l'analyse...</p>
       </div>
     </div>
   </div>
 
   <script>
     const testVideoFileId = "1bf1izrxofAyoAsUn7g-QclbvITF_eT6B";
-    const testThumbnailFileId = "1h1-0I2aDyNVCTMySTTFNsr9W9dF8rL3j";
-
-    const defaultThesisSynopsis = "Conçue par Bernard Andrès et réalisée par Pierre Fraser sous l'égide de l'AIEQ, la série documentaire <i>Voyage en Littérature Québécoise</i> propose une exploration captivante de l'imaginaire national. À travers des entretiens éclairants ancrés dans l'Atlas littéraire du Québec, elle dévoile la richesse, la diversité et la profondeur historique des voix d'ici.";
+    const defaultThesisSynopsis = "Conçue par Bernard Andrès et réalisée par Pierre Fraser sous l'égide de l'AIEQ, la série documentaire Voyage en Littérature Québécoise propose une exploration rigoureuse de l'imaginaire national ancrée dans l'Atlas littéraire du Québec.";
 
     const seasons = [
       {
@@ -823,13 +724,11 @@
 
       const title = document.createElement('h2');
       title.className = 'season-title';
-
-      if (season.id === 's1') {
-        title.innerHTML = `${season.title} <a href="#ep-s1-6" class="badge-new-episodes"><span class="badge-dot"></span>Nouveaux épisodes</a>`;
-      } else {
-        title.textContent = season.title;
-      }
-
+      
+      // Insertion du titre et du nombre de vidéos entre parenthèses de manière discrète
+      const episodeCount = season.episodes ? season.episodes.length : 0;
+      title.innerHTML = `${season.title} <span class="episode-count">(${episodeCount})</span>`;
+      
       row.appendChild(title);
 
       const wrapper = document.createElement('div');
@@ -852,12 +751,7 @@
         const card = document.createElement('div');
         card.className = 'card';
 
-        if (season.id === 's1' && ep.id === 6) {
-          card.id = 'ep-s1-6';
-        }
-
         card.onclick = () => {
-          document.querySelectorAll('.card.highlight-card').forEach(c => c.classList.remove('highlight-card'));
           playDriveVideo(ep.fileId, ep.title, ep.synopsis);
         };
 
@@ -927,25 +821,6 @@
       carousel.scrollBy({ left: distance, behavior: 'smooth' });
     }
 
-    document.addEventListener('click', function(e) {
-      const target = e.target.closest('.badge-new-episodes');
-      if (target) {
-        e.preventDefault();
-        const targetCard = document.getElementById('ep-s1-6');
-        if (targetCard) {
-          const carousel = targetCard.closest('.carousel');
-          if (carousel) {
-            const scrollLeftPos = targetCard.offsetLeft - carousel.offsetLeft;
-            carousel.scrollTo({
-              left: scrollLeftPos,
-              behavior: 'smooth'
-            });
-            targetCard.classList.add('highlight-card');
-          }
-        }
-      }
-    });
-
     function playDriveVideo(fileId, episodeTitle, episodeSynopsis) {
       const modal = document.getElementById('videoModal');
       const player = document.getElementById('drivePlayer');
@@ -954,7 +829,7 @@
       const textContainer = document.getElementById('modalTextContainer');
 
       player.src = `https://drive.google.com/file/d/${fileId}/preview?autoplay=1`;
-      titleEl.textContent = episodeTitle || "Extrait de la thèse";
+      titleEl.textContent = episodeTitle || "Notice documentaire";
       textEl.innerHTML = episodeSynopsis || defaultThesisSynopsis;
 
       textContainer.scrollTop = 0;
@@ -968,25 +843,10 @@
       modal.classList.remove('active');
     }
 
-    function openInfoModal() {
-      const modal = document.getElementById('infoModal');
-      modal.scrollTop = 0;
-      modal.classList.add('active');
-    }
-
-    function closeInfoModal() {
-      const modal = document.getElementById('infoModal');
-      modal.classList.remove('active');
-    }
-
     window.onclick = function(event) {
       const videoModal = document.getElementById('videoModal');
-      const infoModal = document.getElementById('infoModal');
       if (event.target === videoModal) {
         closeModal();
-      }
-      if (event.target === infoModal) {
-        closeInfoModal();
       }
     }
 
